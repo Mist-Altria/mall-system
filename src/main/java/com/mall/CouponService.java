@@ -8,7 +8,7 @@ package com.mall;
 public class CouponService {
 
     /** 满减门槛：订单金额达到该值（单位：分）才可以使用满减券 */
-    private static final int FULL_REDUCTION_THRESHOLD = 8000;
+    private static final int FULL_REDUCTION_THRESHOLD = 9000;
 
     /** 满减面额（单位：分） */
     private static final int FULL_REDUCTION_AMOUNT = 1000;
@@ -33,7 +33,7 @@ public class CouponService {
     }
 
     /**
-     * 计算折扣券后的应付金额（不足 8 折时按传入折扣率计算，最低 8 折）。
+     * 计算折扣券后的应付金额（最低 8 折）。
      *
      * @param orderAmount 订单原始金额（单位：分）
      * @param discountRate 折扣率，例如 0.9 表示九折
