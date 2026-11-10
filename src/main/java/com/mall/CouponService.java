@@ -13,6 +13,9 @@ public class CouponService {
     /** 满减面额（单位：分） */
     private static final int FULL_REDUCTION_AMOUNT = 1000;
 
+    /** 折扣券最大折扣率（8 折） */
+    private static final double MAX_DISCOUNT_RATE = 0.8;
+
     /**
      * 计算满减后的应付金额。
      *
@@ -27,5 +30,23 @@ public class CouponService {
             return orderAmount - FULL_REDUCTION_AMOUNT;
         }
         return orderAmount;
+    }
+
+    /**
+     * 计算折扣券后的应付金额（最低 8 折）。
+     *
+     * @param orderAmount 订单原始金额（单位：分）
+     * @param discountRate 折扣率，例如 0.9 表示九折
+     * @return 打折后的金额（单位：分）
+     */
+    public int applyDiscount(int orderAmount, double discountRate) {
+        if (orderAmount < 0) {
+            throw new IllegalArgumentException("订单金额不能为负数");
+        }
+        if (discountRate <= 0 || discountRate > 1) {
+            throw new IllegalArgumentException("折扣率必须在 (0, 1] 之间");
+        }
+        double rate = Math.max(discountRate, MAX_DISCOUNT_RATE);
+        return (int) Math.round(orderAmount * rate);
     }
 }
